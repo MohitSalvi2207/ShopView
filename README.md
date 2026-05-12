@@ -37,7 +37,7 @@ cd shopview-app
 npm install
 
 # 3. Copy the sample env file
-cp .env.example .env
+cp .env .env
 
 # 4. Start the development server
 npm run dev
@@ -79,7 +79,7 @@ shopview-app/
 │   ├── App.jsx                 # Root: AuthProvider + BrowserRouter + Routes
 │   └── main.jsx
 ├── .env                        # Environment variables (not committed)
-├── .env.example                # Sample env file
+├── .env                # Sample env file
 └── README.md
 ```
 
@@ -97,7 +97,7 @@ shopview-app/
 
 ---
 
-## ⚙️ Environment Variables (.env.example)
+## ⚙️ Environment Variables (.env)
 
 ```env
 VITE_API_BASE_URL=https://dummyjson.com

@@ -13,30 +13,31 @@ function App() {
     <AuthProvider>
       <BrowserRouter>
         <Routes>
-          {/* ✅ Public — anyone can visit */}
           <Route path="/login" element={<Login />} />
 
-          {/* 🔒 Protected — ProtectedRoute checks login before rendering */}
-          <Route
-            path="/dashboard"
-            element={
-              <ProtectedRoute>
-                {" "}
-                {/* 👈 Guard is applied HERE */}
-                <Dashboard />
-              </ProtectedRoute>
-            }
-          >
+          {/* ✅ Dashboard is now PUBLIC */}
+          <Route path="/dashboard" element={<Dashboard />}>
             <Route index element={<Navigate to="products" replace />} />
-            <Route path="products" element={<Products />} />{" "}
-            {/* 🔒 Protected */}
-            <Route path="products/:id" element={<ProductDetail />} />{" "}
-            {/* 🔒 Protected */}
-            <Route path="profile" element={<Profile />} /> {/* 🔒 Protected */}
+
+            {/* ✅ Products — no login needed */}
+            <Route path="products" element={<Products />} />
+            <Route path="products/:id" element={<ProductDetail />} />
+
+            {/* 🔒 Profile ONLY — requires login */}
+            <Route
+              path="profile"
+              element={
+                <ProtectedRoute>
+                  <Profile />
+                </ProtectedRoute>
+              }
+            />
           </Route>
 
-          {/* Any unknown URL → login */}
-          <Route path="*" element={<Navigate to="/login" replace />} />
+          <Route
+            path="*"
+            element={<Navigate to="/dashboard/products" replace />}
+          />
         </Routes>
       </BrowserRouter>
     </AuthProvider>
