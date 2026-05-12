@@ -38,13 +38,23 @@ const Navbar = () => {
       </div>
 
       <div className="navbar-user">
-        {user?.image && (
-          <img src={user.image} alt={user.firstName} className="avatar" />
+        {user ? (
+          <>
+            {user.image && (
+              <img src={user.image} alt={user.firstName} className="avatar" />
+            )}
+            <span className="user-name">
+              {user.firstName} {user.lastName}
+            </span>
+            <button className="btn-logout" onClick={handleLogout}>
+              Sign out
+            </button>
+          </>
+        ) : (
+          <Link to="/login" className="btn-login">
+            Sign in
+          </Link>
         )}
-        <span className="user-name">{user?.firstName} {user?.lastName}</span>
-        <button className="btn-logout" onClick={handleLogout}>
-          Sign out
-        </button>
       </div>
     </nav>
   );
