@@ -83,6 +83,7 @@ const Login = () => {
             <label htmlFor="username">Username</label>
             <input
               id="username"
+              name="username"
               type="text"
               placeholder="username"
               value={username}
@@ -91,6 +92,7 @@ const Login = () => {
                 setErrors((p) => ({ ...p, username: "" }));
               }}
               autoComplete="username"
+              required
             />
             {errors.username && (
               <span className="field-error">{errors.username}</span>
@@ -102,6 +104,7 @@ const Login = () => {
             <div className="input-wrapper">
               <input
                 id="password"
+                name="password"
                 type={showPass ? "text" : "password"}
                 placeholder="Your password"
                 value={password}
@@ -110,6 +113,7 @@ const Login = () => {
                   setErrors((p) => ({ ...p, password: "" }));
                 }}
                 autoComplete="current-password"
+                required
               />
               <button
                 type="button"
