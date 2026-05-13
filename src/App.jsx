@@ -32,7 +32,7 @@ function App() {
 
           <Route
             path="*"
-            element={<Navigate to="/dashboard/products" replace />}
+            element={<Navigate to="/login" replace />}
           />
         </Routes>
       </BrowserRouter>

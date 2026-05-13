@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
@@ -10,10 +10,19 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const [showPass, setShowPass] = useState(false);
 
+  const [showPopup, setShowPopup] = useState(false);
   const { login } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/dashboard/products";
+
+  useEffect(() => {
+    if (location.state?.requireLogin) {
+      setShowPopup(true);
+      // Clear the state so it doesn't show again on refresh
+      window.history.replaceState({}, document.title);
+    }
+  }, [location.state]);
 
   const validate = () => {
     const e = {};
@@ -120,11 +129,28 @@ const Login = () => {
             {loading ? <span className="btn-spinner" /> : "Sign In"}
           </button>
         </form>
-
-        <p className="login-hint">
-          Try: <code>emilys</code> / <code>emilyspass</code>
-        </p>
       </div>
+
+      {showPopup && (
+        <div className="popup-overlay">
+          <div className="popup-box">
+            <div className="popup-icon">🔒</div>
+            <h2 className="popup-title">Login Required</h2>
+            <p className="popup-message">
+              You need to be logged in to access this page. Please sign in to
+              continue.
+            </p>
+            <div className="popup-actions">
+              <button
+                className="popup-btn-primary"
+                onClick={() => setShowPopup(false)}
+              >
+                Dismiss
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
