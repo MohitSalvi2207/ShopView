@@ -24,8 +24,8 @@ const ProtectedRoute = ({ children }) => {
             <div className="popup-icon">🔒</div>
             <h2 className="popup-title">Login Required</h2>
             <p className="popup-message">
-              You need to be logged in to view your profile. Please sign in to
-              continue.
+              You need to be logged in to access the dashboard. Please sign in
+              to continue.
             </p>
             <div className="popup-actions">
               <button

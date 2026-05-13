@@ -15,23 +15,19 @@ function App() {
         <Routes>
           <Route path="/login" element={<Login />} />
 
-          {/* ✅ Dashboard is now PUBLIC */}
-          <Route path="/dashboard" element={<Dashboard />}>
+          {/* 🔒 Dashboard and all its children (Products, Profile) now REQUIRE login */}
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute>
+                <Dashboard />
+              </ProtectedRoute>
+            }
+          >
             <Route index element={<Navigate to="products" replace />} />
-
-            {/* ✅ Products — no login needed */}
             <Route path="products" element={<Products />} />
             <Route path="products/:id" element={<ProductDetail />} />
-
-            {/* 🔒 Profile ONLY — requires login */}
-            <Route
-              path="profile"
-              element={
-                <ProtectedRoute>
-                  <Profile />
-                </ProtectedRoute>
-              }
-            />
+            <Route path="profile" element={<Profile />} />
           </Route>
 
           <Route

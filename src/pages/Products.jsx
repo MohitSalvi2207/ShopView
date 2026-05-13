@@ -1,6 +1,7 @@
 import { useEffect, useState, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { fetchProducts } from '../services/api';
+import { formatCurrency } from '../utils/currency';
 
 const LIMIT = 12;
 
@@ -42,10 +43,13 @@ const ProductCard = ({ product }) => (
       <StarRating rating={product.rating} />
       <div className="card-footer">
         <div className="price-group">
-          <span className="price">${product.price.toFixed(2)}</span>
+          <div className="price-stack">
+            <span className="price">{formatCurrency(product.price, 'USD')}</span>
+            <span className="price-inr">{formatCurrency(product.price, 'INR')}</span>
+          </div>
           {product.discountPercentage > 0 && (
             <span className="original-price">
-              ${(product.price / (1 - product.discountPercentage / 100)).toFixed(2)}
+              {formatCurrency(product.price / (1 - product.discountPercentage / 100), 'USD')}
             </span>
           )}
         </div>

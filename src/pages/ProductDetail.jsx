@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { fetchProductById } from '../services/api';
+import { formatCurrency } from '../utils/currency';
 
 const StarRating = ({ rating }) => {
   const full = Math.floor(rating);
@@ -109,13 +110,16 @@ const ProductDetail = () => {
           <p className="review-count">{product.reviews?.length || 0} reviews</p>
 
           <div className="detail-price-block">
-            <span className="detail-price">${discountedPrice.toFixed(2)}</span>
+            <div className="price-stack">
+              <span className="detail-price">{formatCurrency(discountedPrice, 'USD')}</span>
+              <span className="detail-price-inr">{formatCurrency(discountedPrice, 'INR')}</span>
+            </div>
             {originalPrice && (
-              <span className="detail-original">${originalPrice.toFixed(2)}</span>
+              <span className="detail-original">{formatCurrency(originalPrice, 'USD')}</span>
             )}
             {product.discountPercentage > 0 && (
               <span className="save-badge">
-                Save ${(originalPrice - discountedPrice).toFixed(2)}
+                Save {formatCurrency(originalPrice - discountedPrice, 'USD')}
               </span>
             )}
           </div>
